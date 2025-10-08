@@ -14,11 +14,15 @@ data class Transaction(
     val id: Long? = null,
 
     @Column(nullable = false)
+    @Schema(description = "Название операции", example = "Вечернее кофе с десертом")
+    val name: String,
+
+    @Column(nullable = false)
     @Schema(description = "Сумма транзакции", example = "1500.50")
     val amount: Double,
 
     @Column(nullable = false)
-    @Schema(description = "Описание транзакции", example = "Покупка продуктов в супермаркете")
+    @Schema(description = "Описание транзакции", example = "Выпила вечером кофе с подружками в кофейне на углу дома")
     val description: String,
 
     @Column(nullable = false)
@@ -26,7 +30,6 @@ data class Transaction(
     @Schema(description = "Тип транзакции", example = "EXPENSE")
     val type: TransactionType,
 
-    // Связь с категорией
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     @Schema(description = "Категория транзакции")

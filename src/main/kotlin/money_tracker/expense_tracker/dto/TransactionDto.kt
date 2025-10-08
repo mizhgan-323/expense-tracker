@@ -13,19 +13,22 @@ import java.time.LocalDateTime
 data class TransactionDto(
     @Schema(description = "Уникальный идентификатор транзакции", example = "1")
     val id: Long? = null,
-    
+
+    @Schema(description = "Название операции", example = "Вечернее кофе с десертом", required = true)
+    val name: String,
+
     @Schema(description = "Сумма транзакции", example = "1500.50", required = true)
     val amount: Double,
-    
-    @Schema(description = "Описание транзакции", example = "Покупка продуктов в супермаркете", required = true)
+
+    @Schema(description = "Описание транзакции", example = "Выпила вечером кофе с подружками в кофейне на углу дома", required = true)
     val description: String,
-    
+
     @Schema(description = "Тип транзакции", example = "EXPENSE", required = true)
     val type: TransactionType,
-    
+
     @Schema(description = "ID категории транзакции", example = "1", required = true)
     val categoryId: Long,
-    
+
     @Schema(description = "Дата и время транзакции", example = "2024-01-15T10:30:00")
     val date: LocalDateTime = LocalDateTime.now()
 ) {
@@ -33,6 +36,7 @@ data class TransactionDto(
         fun fromEntity(transaction: Transaction): TransactionDto {
             return TransactionDto(
                 id = transaction.id,
+                name = transaction.name,
                 amount = transaction.amount,
                 description = transaction.description,
                 type = transaction.type,
@@ -45,42 +49,49 @@ data class TransactionDto(
 
 @Schema(description = "Запрос на создание новой транзакции")
 data class CreateTransactionRequest(
+    @Schema(description = "Название операции", example = "Вечернее кофе с десертом", required = true)
+    @field:NotBlank(message = "Название операции не может быть пустым")
+    val name: String,
+
     @Schema(description = "Сумма транзакции", example = "1500.50", required = true)
     @field:NotNull(message = "Сумма транзакции не может быть пустой")
     @field:DecimalMin(value = "0.01", message = "Сумма транзакции должна быть больше 0")
     val amount: Double,
-    
-    @Schema(description = "Описание транзакции", example = "Покупка продуктов в супермаркете", required = true)
+
+    @Schema(description = "Описание транзакции", example = "Выпила вечером кофе с подружками в кофейне на углу дома", required = true)
     @field:NotBlank(message = "Описание транзакции не может быть пустым")
     val description: String,
-    
+
     @Schema(description = "Тип транзакции", example = "EXPENSE", required = true)
     @field:NotNull(message = "Тип транзакции не может быть пустым")
     val type: TransactionType,
-    
+
     @Schema(description = "ID категории транзакции", example = "1", required = true)
     @field:NotNull(message = "ID категории не может быть пустым")
     @field:Positive(message = "ID категории должен быть положительным числом")
     val categoryId: Long,
-    
+
     @Schema(description = "Дата и время транзакции", example = "2024-01-15T10:30:00")
     val date: LocalDateTime? = null
 )
 
 @Schema(description = "Запрос на обновление транзакции")
 data class UpdateTransactionRequest(
+    @Schema(description = "Название операции", example = "Вечернее кофе с десертом")
+    val name: String? = null,
+
     @Schema(description = "Сумма транзакции", example = "1500.50")
     val amount: Double? = null,
-    
-    @Schema(description = "Описание транзакции", example = "Покупка продуктов в супермаркете")
+
+    @Schema(description = "Описание транзакции", example = "Выпила вечером кофе с подружками в кофейне на углу дома")
     val description: String? = null,
-    
+
     @Schema(description = "Тип транзакции", example = "EXPENSE")
     val type: TransactionType? = null,
-    
+
     @Schema(description = "ID категории транзакции", example = "1")
     val categoryId: Long? = null,
-    
+
     @Schema(description = "Дата и время транзакции", example = "2024-01-15T10:30:00")
     val date: LocalDateTime? = null
 )
