@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "3.2.5"
 	id("io.spring.dependency-management") version "1.1.4"
-	kotlin("jvm") version "1.9.22"
-	kotlin("plugin.spring") version "1.9.22"
-	kotlin("plugin.jpa") version "1.9.22"
+	id("org.jetbrains.kotlin.jvm") version "1.9.22"
+	id("org.jetbrains.kotlin.plugin.spring") version "1.9.22"
+	id("org.jetbrains.kotlin.plugin.jpa") version "1.9.22"
 }
 
 group = "money_tracker"
@@ -47,6 +47,11 @@ tasks.withType<KotlinCompile> {
 	}
 }
 
+// Настройка для Kotlin
+// kotlin {
+//	jvmToolchain(17)
+// }
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
@@ -56,7 +61,7 @@ tasks.bootJar {
 	archiveFileName.set("expense-tracker.jar")
 	manifest {
 		attributes(
-			'Main-Class': 'money_tracker.expense_tracker.ExpenseTrackerApplicationKt'
+			"Main-Class" to "money_tracker.expense_tracker.ExpenseTrackerApplicationKt"
 		)
 	}
 }
