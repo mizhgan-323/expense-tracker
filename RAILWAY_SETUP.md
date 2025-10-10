@@ -10,7 +10,7 @@
 
 ### 1. Получите данные подключения к Supabase:
 
-1. Зайдите в ваш проект Supabase
+1. Зайдите в ваш проект2 Supabase
 2. Settings → Database
 3. Connection Info - скопируйте:
    - **Host**: `db.[ваш-проект-id].supabase.co`
