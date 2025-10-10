@@ -26,17 +26,17 @@
 3. Добавьте переменные:
 
 ```
-DATABASE_URL=jdbc:postgresql://db.zjqflqalrypsfkkoowkx.supabase.co:5432/postgres
-DATABASE_USERNAME=postgres
+DATABASE_URL=jdbc:postgresql://aws-1-eu-north-1.pooler.supabase.com:6543/postgres
+DATABASE_USERNAME=postgres.zjqflqalrypsfkkoowkx
 DATABASE_PASSWORD=misasa123
 ```
 
 ### 3. ✅ Ваши данные подключения:
 
-- **Host**: `db.zjqflqalrypsfkkoowkx.supabase.co`
-- **Port**: `5432`
+- **Host**: `aws-1-eu-north-1.pooler.supabase.com`
+- **Port**: `6543`
 - **Database**: `postgres`
-- **Username**: `postgres`
+- **Username**: `postgres.zjqflqalrypsfkkoowkx`
 - **Password**: `misasa123`
 
 ### 4. После настройки переменных:
