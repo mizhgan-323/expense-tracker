@@ -1,10 +1,15 @@
 package money_tracker.expense_tracker.controller
 
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class HealthController {
+
+    @Autowired
+    private lateinit var jdbcTemplate: JdbcTemplate
 
     @GetMapping("/health")
     fun health(): Map<String, String> {
@@ -12,6 +17,24 @@ class HealthController {
             "status" to "UP",
             "message" to "Application is running"
         )
+    }
+
+    @GetMapping("/db-test")
+    fun dbTest(): Map<String, Any> {
+        return try {
+            val result = jdbcTemplate.queryForObject("SELECT 1 as test", Int::class.java)
+            mapOf(
+                "status" to "SUCCESS",
+                "database" to "CONNECTED",
+                "test_query" to result
+            )
+        } catch (e: Exception) {
+            mapOf(
+                "status" to "ERROR",
+                "database" to "DISCONNECTED",
+                "error" to e.message
+            )
+        }
     }
 
     @GetMapping("/")

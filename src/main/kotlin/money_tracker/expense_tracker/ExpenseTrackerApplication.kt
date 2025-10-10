@@ -13,8 +13,13 @@ class ExpenseTrackerApplication {
 	fun initializeData(categoryService: CategoryService): CommandLineRunner {
 		return CommandLineRunner {
 			println("Инициализация начальных данных...")
-			categoryService.initializeDefaultCategories()
-			println("Начальные данные успешно инициализированы!")
+			try {
+				categoryService.initializeDefaultCategories()
+				println("Начальные данные успешно инициализированы!")
+			} catch (e: Exception) {
+				println("Ошибка при инициализации данных: ${e.message}")
+				println("Приложение продолжит работу без инициализации данных")
+			}
 		}
 	}
 }
