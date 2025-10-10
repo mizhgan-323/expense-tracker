@@ -22,17 +22,17 @@ class HealthController {
     @GetMapping("/db-test")
     fun dbTest(): Map<String, Any> {
         return try {
-            val result = jdbcTemplate.queryForObject("SELECT 1 as test", Int::class.java)
+            val result: Int? = jdbcTemplate.queryForObject("SELECT 1 as test", Int::class.java)
             mapOf(
                 "status" to "SUCCESS",
                 "database" to "CONNECTED",
-                "test_query" to result
+                "test_query" to (result ?: 0)
             )
         } catch (e: Exception) {
             mapOf(
                 "status" to "ERROR",
                 "database" to "DISCONNECTED",
-                "error" to e.message
+                "error" to (e.message ?: "Unknown error")
             )
         }
     }
